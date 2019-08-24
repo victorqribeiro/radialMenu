@@ -7,7 +7,7 @@ class RadialMenu {
 		this.fontSize = fontSize || 14;
 		this.innerCircle = innerCircle || 50;
 		this.outerCircle = outerCircle || 100;
-		this.rotation = rotation || 0.5;
+		this.rotation = rotation || 0;
 		this.shadowBlur = shadowBlur || 10;
 		this.shadowColor = shadowColor || 'rgba(0,0,0,0.2)';
 		this.shadowOffsetX = shadowOffsetX || 3;
@@ -15,7 +15,7 @@ class RadialMenu {
 		this.buttons = buttons || [
 			{'text': '\uF000', 'backgroundColor': '#EEE', 'borderColor': '#FFF', 'textColor': '#000', 'textBorderColor': 'transparent', 'action': () => { alert(1) } },
 			{'text': '\uF001', 'backgroundColor': '#EEE', 'borderColor': '#FFF', 'textColor': '#000', 'textBorderColor': 'transparent', 'action': () => { alert(2) } },
-			{'text': '\uF002', 'backgroundColor': '#EEE', 'borderColor': '#FFF', 'textColor': '#000', 'textBorderColor': 'transparent', 'action': () => { alert(3) } },
+			{'text': '\uF002', 'backgroundColor': '#EEE', 'borderColor': '#FFF', 'textColor': '#000', 'textBorderColor': 'transparent', 'action': () => { alert(3) } }
 		];
 		this.posX = posX || 0;
 		this.posY = posY || 0;
@@ -38,7 +38,7 @@ class RadialMenu {
 	}
 	
 	init(){
-		var junction_font = new FontFace('Junction Regular', 'url(fonts/junction-regular.woff)');
+		//var junction_font = new FontFace('Junction Regular', 'url(fonts/junction-regular.woff)');
 		document.body.appendChild( this.canvas );
 		for(let i = 0; i < this.buttons.length; i++){
 			this.buttons[i]["ini"] = (i * this.step + this.rotation) % this.TWOPI ;
@@ -50,6 +50,7 @@ class RadialMenu {
 	}
 	
 	draw(){
+		console.log( this.buttons );
 		this.c.clearRect(0,0,this.canvas.width,this.canvas.height);
 		this.c.shadowColor = this.shadowColor;
 		this.c.shadowBlur = this.shadowBlur;
@@ -84,21 +85,22 @@ class RadialMenu {
 	
 	addEvent(){
 	
-		this.canvas.addEventListener('click', e => {
+		this.canvas.addEventListener('mousemove', e => {
 
 			const rect = this.canvas.getBoundingClientRect();
 
 			const d = this.distance(e.clientX,e.clientY,rect.left+this.w2,rect.top+this.h2);
 			let a = Math.atan2(e.clientY-(rect.top+this.h2), e.clientX-(rect.left+this.w2));
-
 			if( d > this.innerCircle && d < this.outerCircle ){
 				for(let i = 0; i < this.buttons.length; i++){
 					a = a > 0 ? a : this.TWOPI+a;
 					if( a > this.buttons[i]["ini"] && a < this.buttons[i]["fin"] ){
-						this.buttons[i].action();
+						//this.buttons[i].action();
+						console.log( i );
 						break;
 					}
 				}
+				
 			}
 
 		});
