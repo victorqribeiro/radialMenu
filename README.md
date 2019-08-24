@@ -1,4 +1,4 @@
-# radialMenu
+# Radial Menu
 
 A highly customizable radial menu.
 
