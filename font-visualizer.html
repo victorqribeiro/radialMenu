@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="theme-color" content="#FFF"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta property="og:url" content="https://github.com/victorqribeiro/radialMenu" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Radial Menu" />
+	<meta property="og:author" content="Victor Ribeiro" />
+	<meta property="og:description" content="A beautiful customizible radial menul for your site." />
+	<title> Radial Menu - Victor Ribeiro </title>
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.css" /> 
+	<style>
+		html, body {
+			margin: 1em;
+			padding: 1em;
+			font: 15px 'Arial';
+			-webkit-user-select: none;  /* Chrome all / Safari all */
+			-moz-user-select: none;     /* Firefox all */
+			-ms-user-select: none;      /* IE 10+ */
+			user-select: none; 
+		}
+		body{
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: row;
+			align-items: flex-start;
+			justify-content: space-around;
+		}
+		div{
+			min-width: 40px;
+			min-height: 40px;
+			font-family: 'FontAwesome';
+			text-align: center;
+			font-size: 1.2em;
+		}
+	</style>
+</head>
+<body>
+
+<script>
+	String.prototype.pad = function(size) {
+		let s = String(this);
+		while (s.length < (size || 2)) {s = "0" + s;}
+		return s;
+	}
+	for(let i = 0; i < 737; i++){
+		const div = document.createElement('div');
+		div.innerHTML = "&#xf"+(i).toString(16).pad(3);
+		div.title = "f"+(i).toString(16).pad(3);
+		document.body.appendChild( div );
+	}
+</script>
+
+</body>
+</html>
