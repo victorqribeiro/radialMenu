@@ -1,13 +1,14 @@
 class RadialMenu {
 
-	constructor(fontFamily, fontSize, innerCircle, outerCircle,
+	constructor({fontFamily, fontSize, innerCircle, outerCircle,
 							rotation, shadowBlur, shadowColor, shadowOffsetX, 
-							shadowOffsetY, buttons, posX, posY, isFixed){
+							shadowOffsetY, buttons, posX, posY, isFixed} = {}){
+		this.TWOPI = 2*Math.PI;
 		this.fontFamily = fontFamily || 'FontAwesome';
 		this.fontSize = fontSize || 14;
 		this.innerCircle = innerCircle || 50;
 		this.outerCircle = outerCircle || 100;
-		this.rotation = rotation || Math.PI/2;
+		this.rotation = Math.abs(rotation%this.TWOPI) || 0;
 		this.shadowBlur = shadowBlur || 10;
 		this.shadowColor = shadowColor || 'rgba(0,0,0,0.2)';
 		this.shadowOffsetX = shadowOffsetX || 3;
@@ -16,12 +17,12 @@ class RadialMenu {
 			{'text': '\uF000', 'backgroundColor': '#EEE', 'borderColor': '#FFF', 'textColor': '#000', 'textBorderColor': 'transparent', 'action': () => { alert(1) } },
 			{'text': '\uF001', 'backgroundColor': '#EEE', 'borderColor': '#FFF', 'textColor': '#000', 'textBorderColor': 'transparent', 'action': () => { alert(2) } },
 			{'text': '\uF002', 'backgroundColor': '#EEE', 'borderColor': '#FFF', 'textColor': '#000', 'textBorderColor': 'transparent', 'action': () => { alert(3) } },
-			{'text': '\uF003', 'backgroundColor': '#EEE', 'borderColor': '#FFF', 'textColor': '#000', 'textBorderColor': 'transparent', 'action': () => { alert(4) } }
+			{'text': '\uF003', 'backgroundColor': '#EEE', 'borderColor': '#FFF', 'textColor': '#000', 'textBorderColor': 'transparent', 'action': () => { alert(4) } },
+			{'text': '\uF004', 'backgroundColor': '#EEE', 'borderColor': '#FFF', 'textColor': '#000', 'textBorderColor': 'transparent', 'action': () => { alert(5) } }
 		];
 		this.posX = posX || 0;
 		this.posY = posY || 0;
 		this.isFixed = isFixed || false;
-		this.TWOPI = 2*Math.PI;
 		this.step = this.TWOPI / this.buttons.length;
 		this.canvas = document.createElement('canvas');
 		this.canvas.width = (this.outerCircle * 2) + (this.shadowBlur * 2) + (this.shadowOffsetX * 2);
@@ -39,10 +40,9 @@ class RadialMenu {
 	}
 	
 	init(){
-		//var junction_font = new FontFace('Junction Regular', 'url(fonts/junction-regular.woff)');
 		document.body.appendChild( this.canvas );
 		for(let i = 0; i < this.buttons.length; i++){
-			this.buttons[i]["ini"] = (i * this.step + (this.rotation%this.TWOPI)) % this.TWOPI ;
+			this.buttons[i]["ini"] = (i * this.step + this.rotation) % this.TWOPI ;
 			this.buttons[i]["fin"] = (this.buttons[i]["ini"] + this.step) % this.TWOPI;
 			if( this.buttons[i]["ini"] > this.buttons[i]["fin"])
 				this.rest = i;
