@@ -123,7 +123,9 @@ You should pass an array with button objects. A button object is a simple object
 
 **text** is the icon that will be displayed. [see the font-visualizer.html for the unicode of each icon *'\uf000'*](font-visualizer.html)
 
-**action** is a function that will be called when the button is clicked.  
+**action** is a function that will be called when the button is clicked. 
+
+Besides that, you can pass all those above metioned settings inside the button object, but this way, the settings will only apply to that particular button. Take a look on the example below. One button will have the default color (black) and the other one will have a red color for the text.
 
 
 ```javascript
