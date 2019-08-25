@@ -30,8 +30,8 @@ To create a Radial Menu in your web app you'll need to pass a configuration obje
 const mySettings = {
 	textColor: 'red', //define the color of the text on the buttons
 	buttons: [
-		{'text': <, 'action': ()=>{ history.go(-1) }}, //create a button that goes back on history
-		{'text': >, 'action': ()=>{ history.go(1) }}, //create a button tha goes forward on history
+		{'text': '\uf053', 'action': ()=>{ history.go(-1) } }, //create a button that goes back on history
+		{'text': '\uf054', 'action': ()=>{ history.go(1) } }, //create a button tha goes forward on history
 	]
 };
 
