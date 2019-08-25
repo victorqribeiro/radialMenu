@@ -18,12 +18,12 @@
 			padding: 1em;
 			font: 15px 'Arial';
 			height: 100%;
-			-webkit-user-select: none;  /* Chrome all / Safari all */
-			-moz-user-select: none;     /* Firefox all */
-			-ms-user-select: none;      /* IE 10+ */
-			user-select: none; 
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
 		}
-		p{
+		p {
 			text-align: justify;
 		}
 	</style>
@@ -53,7 +53,11 @@
 
 <script src="src/RadialMenu.js"></script>
 <script>
-	const radial = new RadialMenu({rotation: Math.PI/2, fontSize: 18});
+	const b = [
+		{text: '\uf00c', action: ()=>{alert(1)} },
+		{text: '\uf00d', action: ()=>{alert(2)} },
+	];
+	const radial = new RadialMenu({rotation: Math.PI/2, fontSize: 18, buttons: b});
 </script>
 
 </body>
