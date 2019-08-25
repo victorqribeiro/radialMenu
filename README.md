@@ -1,16 +1,42 @@
 # Radial Menu
 
-A highly customizable radial menu.
+A highly customizable radial menu, very easy to setup.
 
 ![screenshot](screenshot.png)
 
 ## About
 
-Work in progress. Writing the documentation and doing some tests.
+Create a customized and beautiful radial menu for your web app. It can be used as a standalone menu or override the default context menu on your web app. On a desktop or notebook click the second button of the mouse (context menu). On a smartphone or tablet, click the screen and hold for few seconds and the menu will pop.
+
+*Work in progress. Writing the documentation and doing some tests.*
 
 ## Documentation
 
-To create a Radial Menu in your web appm you'll need to pass a configuration object to the constructor. By default a lot of values are already setted, but you can fiddle with every single one of them. Let's talk about each one.
+Let's create a new radial button. You'll need to add the *RadialMenu.js* to your web app and then create a new menu. Let's look at the code:
+
+```html
+<script src="RadialMenu.js"></script>
+<script>
+const radial = new RadialMenu();
+</script>
+```
+
+That's it. The library has some default buttons as example so you can see how it works. Let's continue reading the documentation so we can learn how to create our very own radial menu with our very own buttons.
+
+To create a Radial Menu in your web app you'll need to pass a configuration object to the constructor. By default a lot of values are already setted, but you can fiddle with every single one of them. Let's talk about each one.
+
+
+```javascript
+const mySettings = {
+	textColor: 'red', //define the color of the text on the buttons
+	buttons: [
+		{'text': <, 'action': ()=>{ history.go(-1) }}, //create a button that goes back on history
+		{'text': >, 'action': ()=>{ history.go(1) }}, //create a button tha goes forward on history
+	]
+};
+
+const radial = new RadialMenu(mySettings);
+```
 
 **fontFamily** : String  
 Name of the font to be used. On this example 'FontAwesome' is being used for the free icons. But you can use your own font.  
