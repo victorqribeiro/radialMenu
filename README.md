@@ -62,7 +62,7 @@ Outer circle of the radial menu. The outer circle and the inner circle will defi
 
 
 **rotation** : Int  
-This value rotate the whole "circle" of the menu. If you want to better "align" the button's divison. *This value is in radians*.  
+This value rotate the whole "circle" of the menu, if you want to better "align" the button's divison. *This value is in radians and always rotate the menu clock wise*.
 *Default:* PI/2 (90º)
 
 
