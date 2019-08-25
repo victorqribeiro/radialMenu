@@ -107,6 +107,26 @@ class RadialMenu {
 		
 		this.h2 = this.canvas.height >> 1;
 		
+		if( this.backgroundColor instanceof Object )
+		
+			this.backgroundColor = this.createGradient(this.backgroundColor);
+
+		if( this.shadowColor instanceof Object )
+		
+			this.shadowColor = this.createGradient(this.shadowColor);
+
+		if( this.textColor instanceof Object )
+		
+			this.textColor = this.createGradient(this.textColor);
+
+		if( this.textBorderColor instanceof Object )
+		
+			this.textBorderColor = this.createGradient(this.textBorderColor);
+
+		if( this.textShadowColor instanceof Object )
+		
+			this.textShadowColor = this.createGradient(this.textShadowColor);
+		
 		this.init();
 		
 		this.draw();
@@ -305,6 +325,65 @@ class RadialMenu {
 		
 		this.canvas.style.top = y+"px";
 		
+	}
+	
+	createGradient(obj){
+	
+		if( !("gradient" in obj) )
+			throw "Invalid gradient object";
+	
+		let gradient;
+	
+		switch( obj["gradient"] ){
+			
+			case "radial" :
+		
+					gradient = this.c.createRadialGradient(this.w2, this.h2, this.innerCircle, this.w2, this.h2, this.outerCircle);
+				
+				break;
+		
+			case "linear1" :
+		
+					gradient = this.c.createLinearGradient(0, 0, 0, this.canvas.height);
+					
+				break;
+		
+			case "linear2" :
+		
+					gradient = this.c.createLinearGradient(0, 0, this.canvas.width, 0);
+					
+				break;
+		
+			case "linear3" :
+		
+					gradient = this.c.createLinearGradient(0, 0, this.canvas.width, this.canvas.height);
+					
+				break;
+		
+			case "linear4" :
+		
+					gradient = this.c.createLinearGradient(0, this.canvas.height, this.canvas.width, 0);
+				
+				break;
+		
+			default :
+		
+				throw "Invalid gradient value";
+			
+		}
+	
+		for(const key in obj['colors']){
+			
+			if( isNaN(key) || key < 0 || key > 1 )
+			
+				throw "Invalid color position"
+			
+			gradient.addColorStop(key, obj['colors'][key]);
+				
+		}
+			
+		return gradient;
+	
 	}
 	
 }
