@@ -82,7 +82,7 @@ Vertical displacement of the shadow.
 *Default:* 3
 
 
-### You can edit every single button individually, or you can set values for all of them at once.
+**You can edit every single button individually, or you can set values for all of them at once.**  
 
 
 **backgroundColor** : Color (rgb, rgba, hex)   
