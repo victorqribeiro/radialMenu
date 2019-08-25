@@ -60,15 +60,21 @@ Inner circle of the radial menu. Use 0 (zero) if you don't want a hole in the me
 Outer circle of the radial menu. The outer circle and the inner circle will defined how thick is the menu.  
 *Default:* 100
 
+innerCircle = 50, outerCircle = 100  
+![fullCircle](imgRef/fullCircle.png)
+
+innerCircle = 0, outerCircle = 100  
+![perfuratedCircle](imgRef/perfuratedCircle.png)
+
 
 **rotation** : Int  
 This value rotate the whole "circle" of the menu, if you want to better "align" the button's divison. *This value is in radians and always rotate the menu clock wise*.
 *Default:* PI/2 (90º)
 
-Not rotated
+Not rotated  
 ![default](imgRef/default.png)
 
-Rotated
+Rotated  
 ![rotated](imgRef/rotated.png)
 
 
@@ -207,16 +213,16 @@ radial - *from inside to outside*
 ![rotated](imgRef/radial.png)
 
 linear1 - *top to bottom*  
-![rotated](imgRef/linear1.png)
+![linear1](imgRef/linear1.png)
 
 linear2 - *left to right*  
-![rotated](imgRef/linear2.png)
+![linear2](imgRef/linear2.png)
 
 linear3 - *top left to bottom right*  
-![rotated](imgRef/linear3.png)
+![linear3](imgRef/linear3.png)
 
 linear4 - *bottom left to top right*  
-![rotated](imgRef/linear4.png)
+![linear4](imgRef/linear4.png)
 
 If you want a gradient from black to white set 0 as black and 1 as white, if you want a white to black gradient, invert the colors: set 0 to white and 1 to black.
 
