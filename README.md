@@ -60,10 +60,10 @@ Inner circle of the radial menu. Use 0 (zero) if you don't want a hole in the me
 Outer circle of the radial menu. The outer circle and the inner circle will defined how thick is the menu.  
 *Default:* 100
 
-innerCircle = 50, outerCircle = 100  
+innerCircle = 0, outerCircle = 100  
 ![fullCircle](imgRef/fullCircle.png)
 
-innerCircle = 0, outerCircle = 100  
+innerCircle = 50, outerCircle = 100  
 ![perfuratedCircle](imgRef/perfuratedCircle.png)
 
 
