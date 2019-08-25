@@ -31,13 +31,13 @@ class RadialMenu {
 			
 		this.rotation = Math.abs(rotation%this.TWOPI) || 0;
 		
-		this.shadowBlur = shadowBlur || 10;
-		
 		this.shadowColor = shadowColor || 'rgba(0,0,0,0.2)';
 		
-		this.shadowOffsetX = shadowOffsetX || 3;
+		this.shadowBlur = !isNaN(shadowBlur) ? shadowBlur : 10;
 		
-		this.shadowOffsetY = shadowOffsetY || 3;
+		this.shadowOffsetX = !isNaN(shadowOffsetX) ? shadowOffsetX : 3;
+		
+		this.shadowOffsetY = !isNaN(shadowOffsetY) ? shadowOffsetY : 3;
 		
 		this.backgroundColor = backgroundColor || "#EEE";
 		
@@ -49,11 +49,11 @@ class RadialMenu {
 		
 		this.textShadowColor = textShadowColor || "transparent";
 		
-		this.textShadowBlur = textShadowBlur || "transparent";
+		this.textShadowBlur = !isNaN(textShadowBlur) ? textShadowBlur : 10;
 		
-		this.textShadowOffsetX = textShadowOffsetX || 0; 
+		this.textShadowOffsetX = !isNaN(textShadowOffsetX) ? textShadowOffsetX : 3;
 		
-		this.textShadowOffsetY = textShadowOffsetY || 0;
+		this.textShadowOffsetY = !isNaN(textShadowOffsetY) ? textShadowOffsetY : 3;
 		
 		this.buttons = buttons || [
 		
@@ -161,7 +161,7 @@ class RadialMenu {
 		
 		this.c.arc(this.w2, this.h2, this.innerCircle, this.TWOPI, 0, true);
 		
-		this.fillStyle = this.shadowColor;
+		this.c.fillStyle = this.shadowColor;
 		
 		this.c.fill();
 		
@@ -169,7 +169,7 @@ class RadialMenu {
 		
 			const button = this.buttons[i];
 			
-			this.shadowBlur = 0;
+			this.c.shadowBlur = 0;
 			
 			this.c.shadowColor = 'transparent';
 			
@@ -206,6 +206,8 @@ class RadialMenu {
 			this.c.translate(this.w2, this.h2);
 			
 			this.c.fillText(button["text"], button["centerX"], button["centerY"]);
+			
+			this.c.strokeText(button["text"], button["centerX"], button["centerY"]);
 			
 			this.c.restore();
 			

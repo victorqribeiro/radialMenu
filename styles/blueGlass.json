@@ -1,0 +1,12 @@
+{
+	"fontSize": 20,
+	"textColor": "white",
+	"textBorderColor": "rgba(66, 224, 245,0.5)",
+	"shadowColor": "rgba(66, 224, 245,0.5)",
+	"shadowBlur": 20,
+	"shadowOffsetX": 0,
+	"shadowOffsetY": 0,	
+	"backgroundColor": "rgba(66, 179, 245,0.2)",
+	"borderColor": "rgba(66, 224, 245,0.5)",
+	"rotation": 1.57
+}

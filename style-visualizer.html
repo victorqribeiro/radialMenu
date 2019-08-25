@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="theme-color" content="#FFF"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta property="og:url" content="https://github.com/victorqribeiro/radialMenu" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Radial Menu" />
+	<meta property="og:author" content="Victor Ribeiro" />
+	<meta property="og:description" content="A beautiful customizible radial menul for your site." />
+	<title> Radial Menu - Victor Ribeiro </title>
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.css" /> 
+	<style>
+		html, body {
+			margin: 0;
+			padding: 0;
+			-webkit-user-select: none;  /* Chrome all / Safari all */
+			-moz-user-select: none;     /* Firefox all */
+			-ms-user-select: none;      /* IE 10+ */
+			user-select: none;
+			height: 100%;
+		}
+		body{
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: row;
+			align-items: flex-start;
+			justify-content: space-around;
+			background-image: linear-gradient(#AAA, #222);
+		}
+		div{
+			min-width: 40px;
+			min-height: 40px;
+			font-family: 'FontAwesome';
+			text-align: center;
+			font-size: 1.2em;
+		}
+	</style>
+</head>
+<body>
+
+<ul>
+	<li>
+		<a href="#" onclick="javascript:load('blueGlass');">blueGlass</a>
+	</li>
+</ul>
+
+<script src="src/RadialMenu.js"></script>
+
+<script>
+const load = async function(file){
+
+	const request = await fetch('styles/'+file+'.json');
+	
+	const data = await request.json();
+	
+	const radial = new RadialMenu(data);
+	
+}
+
+</script>
+
+</body>
+</html>
