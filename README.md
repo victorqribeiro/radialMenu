@@ -65,13 +65,19 @@ Outer circle of the radial menu. The outer circle and the inner circle will defi
 This value rotate the whole "circle" of the menu, if you want to better "align" the button's divison. *This value is in radians and always rotate the menu clock wise*.
 *Default:* PI/2 (90º)
 
+Not rotated
+![default](imgRef/default.png)
+
+Rotated
+![rotated](imgRef/rotated.png)
+
 
 **shadowBlur** : Int  
 How blurred is the shadow.  
 *Default:* 10
 
 
-**shadowColor** : Color (rgb, rgba, hex)  
+**shadowColor** : Color (rgb, rgba, hex) or Gradient Object (read more below)  
 Shadow color.  
 *Default:* rgba(0,0,0,0.2) *black with alpha*
 
@@ -88,27 +94,27 @@ Vertical displacement of the shadow.
 **You can edit every single button individually, or you can set values for all of them at once.**  
 
 
-**backgroundColor** : Color (rgb, rgba, hex)   
+**backgroundColor** : Color (rgb, rgba, hex) or Gradient Object (read more below)  
 The background color of the button.  
 *Default:* #EEE *gray*
 
 
-**borderColor** : Color (rgb, rgba, hex)  
+**borderColor** : Color (rgb, rgba, hex) or Gradient Object (read more below)  
 The border color of the button.  
 *Default:* #FFF *white*
 
 
-**textColor** : Color (rgb, rgba, hex)  
+**textColor** : Color (rgb, rgba, hex) or Gradient Object (read more below)  
 Color of the text inside the button.  
 *Default:* #000 *black*
 
 
-**textBorderColor** : Color (rgb, rgba, hex)  
+**textBorderColor** : Color (rgb, rgba, hex) or Gradient Object (read more below)  
 Color of the contour of the text inside the button.  
 *Default:* 'transparent'
 
 
-**textShadowColor** : Color (rgb, rgba, hex)  
+**textShadowColor** : Color (rgb, rgba, hex) or Gradient Object (read more below)  
 Color of the shadow of the text.  
 *Default:* 'transparent'  
 
@@ -175,6 +181,44 @@ const myButtons = [
 
 const radial = new RadialMenu({buttons: myButtons});
 ```
+
+**Gradient Object**
+Every color setting could be a gradient. In order to create a gradient, you need to pass a generic object with a gradient type and some colors. Let's take a look at the example below:
+
+```javascript
+const gradient = {gradient: 'radial', colors: {0: 'black', 1: 'white'} };
+
+const menu = new RadialMenu({backgroundColor: gradient})
+```
+
+The index keys inside 'colors' will define where the color start and where it ends. 0 is the start, 1 is the end and everything in between is a step. You can add as many colors as you like, respecting these steps. Let's see how we add more colors on the example below:
+
+```javascript
+const gradient = {gradient: 'radial', colors: {0: 'red', 0.25: 'green', 0.5: 'yellow', 0.75: 'blue', 1: 'orange'} };
+
+const menu = new RadialMenu({backgroundColor: gradient})
+```
+
+That means that the gradient will start with red, 25% along the way it will change to green, 50% after it will become yellow, 75% blue and eventually it will end as orange. The steps indicates where the color change will happen (in percentage).
+
+The gradient object can have one of this values: radial, linear1, linear2, linear3 and linear4. Let's look at them.
+
+radial - *from inside to outside*
+![rotated](imgRef/radial.png)
+
+linear1 - *top to bottom*
+![rotated](imgRef/linear1.png)
+
+linear2 - *left to right*
+![rotated](imgRef/linear2.png)
+
+linear3 - *top left to bottom right*
+![rotated](imgRef/linear3.png)
+
+linear4 - *bottom left to top right*
+![rotated](imgRef/linear4.png)
+
+If you want a gradient from black to white set 0 as black and 1 as white, if you want a white to black gradient, invert the colors: set 0 to white and 1 to black.
 
 ## Buy me a coffee
 [![Donations](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=victorqribeiro%40gmail%2ecom&lc=BR&item_name=Victor%20Ribeiro&item_number=donation&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted)

@@ -17,9 +17,9 @@ class RadialMenu {
 		
 			throw "Font size must be a number";
 			
-		this.innerCircle = innerCircle || 50;
+		this.innerCircle = !isNaN(innerCircle) ? innerCircle : 50;
 		
-		this.outerCircle = outerCircle || 100;
+		this.outerCircle = !isNaN(outerCircle) ? outerCircle : 100;
 		
 		if( this.innerCircle > this.outerCircle )
 		
