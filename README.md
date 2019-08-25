@@ -1,6 +1,6 @@
 # Radial Menu
 
-A highly customizable radial menu, very easy to setup.
+A highly customizable radial menu that's very easy to setup.
 
 ![screenshot](screenshot.png)
 
