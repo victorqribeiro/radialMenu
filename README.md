@@ -121,7 +121,7 @@ This value determine the order the menu will be displayed on the page. Higher va
 **buttons** : Array (of buttons object)  
 You should pass an array with button objects. A button object is a simple object with only two attributes: text and action.  
 
-**text** is the icon that will be displayed. ![see the font-visualizer.html for the unicode of each icon *'\uf000'*](font-visualizer.html)
+**text** is the icon that will be displayed. [see the font-visualizer.html for the unicode of each icon *'\uf000'*](font-visualizer.html)
 
 **action** is a function that will be called when the button is clicked.  
 
@@ -137,7 +137,7 @@ const nok = function(){
 
 const myButtons = [
 	{text: '\uf00c', action: ok},
-	{text: '\uf001', action: nok}
+	{text: '\uf001', action: nok, textColor: 'red'} //you can set values for the button individually
 ];
 
 const radial = new RadialMenu({buttons: myButtons});
