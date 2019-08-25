@@ -4,24 +4,27 @@ A highly customizable radial menu that's very easy to setup.
 
 ![screenshot](screenshot.png)
 
+See it live [here](https://victorribeiro.com/radialMenu) - (Right click if you're on a desktop / touch and hold on smartphone)
+
 ## About
 
-Create a customized and beautiful radial menu for your web app. It can be used as a standalone menu or override the default context menu on your web app. On a desktop or notebook click the second button of the mouse (context menu). On a smartphone or tablet, click the screen and hold for few seconds and the menu will pop.
+Create a customized and beautiful radial menu for your web app that can be used as a standalone menu or override the default context menu. On a desktop or notebook click the second button of the mouse (context menu). On a smartphone or tablet, click the screen and hold for few seconds and the menu will pop.
 
 *Work in progress. Writing the documentation and doing some tests.*
 
 ## Documentation
 
-Let's create a new radial button. You'll need to add the *RadialMenu.js* to your web app and then create a new menu. Let's look at the code:
+Let's create a new radial button so you can see how simple it is. You'll need to add the *RadialMenu.js* to your web app and then create a new menu. Let's look at the code:
 
 ```html
 <script src="RadialMenu.js"></script>
+
 <script>
 const radial = new RadialMenu();
 </script>
 ```
 
-That's it. The library has some default buttons as example so you can see how it works. Let's continue reading the documentation so we can learn how to create our very own radial menu with our very own buttons.
+That's it. The library has some default buttons included as example so you can see how it works. Let's continue reading the documentation so we can learn how to create our very own radial menu with our very own buttons.
 
 To create a Radial Menu in your web app you'll need to pass a configuration object to the constructor. By default a lot of values are already setted, but you can fiddle with every single one of them. Let's talk about each one.
 
@@ -149,7 +152,7 @@ This value determine the order the menu will be displayed on the page. Higher va
 **buttons** : Array (of buttons object)  
 You should pass an array with button objects. A button object is a simple object with only two attributes: text and action.  
 
-**text** is the icon that will be displayed. [see the font-visualizer.html for the unicode of each icon *'\uf000'*](font-visualizer.html)
+**text** is the icon that will be displayed. [see the font-visualizer.html for the unicode of each icon *'\uf000'*](https://victorribeiro.com/radialMenu/font-visualizer.html)
 
 **action** is a function that will be called when the button is clicked. 
 
