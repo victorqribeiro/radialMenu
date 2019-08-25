@@ -226,5 +226,7 @@ linear4 - *bottom left to top right*
 
 If you want a gradient from black to white set 0 as black and 1 as white, if you want a white to black gradient, invert the colors: set 0 to white and 1 to black.
 
+You can check out you some styles I created as examples [here](https://victorribeiro.com/radialMenu/style-visualizer.html)
+
 ## Buy me a coffee
 [![Donations](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=victorqribeiro%40gmail%2ecom&lc=BR&item_name=Victor%20Ribeiro&item_number=donation&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted)
