@@ -1,0 +1,20 @@
+{
+	"innerCircle": 30,
+	"fontSize": 30,
+	"textBorderColor": "rgba(245, 167, 66, 0.2)",
+	"textColor": "white",
+	"shadowColor": "rgba(0,0,0,0.5)",
+	"shadowBlur": 10,
+	"shadowOffsetX": 5,
+	"shadowOffsetY": 5,	
+	"backgroundColor": "rgba(245, 167, 66,0.9)",
+	"borderColor": "#333",
+	"rotation": 0.3,
+	"buttons": [
+		{"text": "\uf018", "action": "" },
+		{"text": "\uf0A1", "action": "" },
+		{"text": "\uf026", "action": "" },
+		{"text": "\uf017", "action": "" },
+		{"text": "\uf0A7", "action": "" }
+	]
+}

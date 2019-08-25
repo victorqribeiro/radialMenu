@@ -1,0 +1,17 @@
+{
+	"fontSize": 20,
+	"textColor": "#EEE",
+	"shadowColor": "rgba(0,0,0,0.5)",
+	"shadowBlur": 10,
+	"shadowOffsetX": 0,
+	"shadowOffsetY": 0,	
+	"backgroundColor": {"gradient": "radial", "colors": {"0": "#555", "1":"#BBB"}},
+	"borderColor": {"gradient": "radial", "colors": {"0": "#444", "1":"#999"}},
+	"rotation": 0,
+	"buttons": [
+		{"text": "\uf008", "action": "" },
+		{"text": "\uf004", "action": "" },
+		{"text": "\uf006", "action": "" },
+		{"text": "\uf007", "action": "" }
+	]
+}

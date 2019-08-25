@@ -111,6 +111,10 @@ class RadialMenu {
 		
 			this.backgroundColor = this.createGradient(this.backgroundColor);
 
+		if( this.borderColor instanceof Object )
+		
+			this.borderColor = this.createGradient(this.borderColor);
+
 		if( this.shadowColor instanceof Object )
 		
 			this.shadowColor = this.createGradient(this.shadowColor);
@@ -209,8 +213,6 @@ class RadialMenu {
 			
 			this.c.stroke();
 			
-			this.c.save();
-			
 			this.c.fillStyle = "textColor" in button ? button["textColor"] : this.textColor;
 			
 			this.c.strokeStyle = "textBorderColor" in button ? button["textBorderColor"] : this.textBorderColor;
@@ -222,6 +224,8 @@ class RadialMenu {
 			this.c.shadowOffsetX = "textShadowOffsetX" in button ? button["textShadowOffsetX"] : this.textShadowOffsetX;
 			
 			this.c.shadowOffsetY = "textShadowOffsetY" in button ? button["textShadowOffsetY"] : this.textShadowOffsetY;
+			
+			this.c.save();
 			
 			this.c.translate(this.w2, this.h2);
 			
