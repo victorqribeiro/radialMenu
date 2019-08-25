@@ -2,6 +2,8 @@
 
 A highly customizable radial menu.
 
+![screenshot](screenshot.png)
+
 ## About
 
 Work in progress. Writing the documentation and doing some tests.
