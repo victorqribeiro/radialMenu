@@ -203,19 +203,19 @@ That means that the gradient will start with red, 25% along the way it will chan
 
 The gradient object can have one of this values: radial, linear1, linear2, linear3 and linear4. Let's look at them.
 
-radial - *from inside to outside*
+radial - *from inside to outside*  
 ![rotated](imgRef/radial.png)
 
-linear1 - *top to bottom*
+linear1 - *top to bottom*  
 ![rotated](imgRef/linear1.png)
 
-linear2 - *left to right*
+linear2 - *left to right*  
 ![rotated](imgRef/linear2.png)
 
-linear3 - *top left to bottom right*
+linear3 - *top left to bottom right*  
 ![rotated](imgRef/linear3.png)
 
-linear4 - *bottom left to top right*
+linear4 - *bottom left to top right*  
 ![rotated](imgRef/linear4.png)
 
 If you want a gradient from black to white set 0 as black and 1 as white, if you want a white to black gradient, invert the colors: set 0 to white and 1 to black.
