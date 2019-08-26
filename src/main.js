@@ -1,1 +1,0 @@
-const radial = new RadialMenu();
