@@ -254,11 +254,12 @@ const load = async function(){
 	
 	const menu = new RadialMenu(data);
 	menu.addButtons([
-		{text: '\uf000', action: ()=>{ //your code here } },
-		{text: '\uf001', action: ()=>{ //your code here } },
+		{text: '\uf000', action: ()=>{ /*your code here*/ } },
+		{text: '\uf001', action: ()=>{ /*your code here*/ } },
 	]);
 }
 
+load();
 ```
 
 ## Buy me a coffee
