@@ -228,7 +228,9 @@ linear4 - *bottom left to top right*
 
 If you want a gradient from black to white set 0 as black and 1 as white, if you want a white to black gradient, invert the colors: set 0 to white and 1 to black.
 
-You can check out you some styles I created as examples [here](https://victorribeiro.com/radialMenu/style-visualizer.html)
+You can check out you some styles I've created as examples [here](https://victorribeiro.com/radialMenu/style-visualizer.html)
+
+## Methods
 
 The RadialMenu class also offers some auxiliary methods so you can use the menu as a stand alone menu (like a joypad for a web game).
 
@@ -242,7 +244,7 @@ Hide the menu.
 Set the X and Y position of the menu.
 
 **addButtons(buttons : array of Buttons)**
-Useful if you want to load the style from a json file and add the buttons later one. Example below:
+Useful if you want to load the style from a json file and add the buttons later on. Example below:
 
 ```javascript
 
