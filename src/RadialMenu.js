@@ -65,19 +65,7 @@ class RadialMenu {
 
 		];
 		
-		if( !(this.buttons instanceof Array) )
-		
-			throw "Buttons must be an Array of button objects";
-			
-		for(let i = 0; i < this.buttons.length; i++){
-		
-			const button = this.buttons[i];
-			
-			if( !("text" in button) || !("action" in button) )
-			
-				throw "Button must have a text and an action value";
-				
-		}
+		this.checkButtons();
 		
 		this.posX = posX || 0;
 		
@@ -85,9 +73,23 @@ class RadialMenu {
 		
 		this.isFixed = isFixed || false;
 		
-		this.step = this.TWOPI / this.buttons.length;
+		this.zIndex = zIndex || 9999;
 		
 		this.canvas = document.createElement('canvas');
+		
+		document.body.appendChild( this.canvas );
+		
+		this.init();
+		
+		this.draw();
+		
+		this.addEvent();
+		
+	}
+	
+	init(){
+
+		this.step = this.TWOPI / this.buttons.length;
 		
 		this.canvas.width = (this.outerCircle * 2) + (this.shadowBlur * 2) + (this.shadowOffsetX * 2);
 		
@@ -101,7 +103,7 @@ class RadialMenu {
 		
 		this.canvas.style.position = "fixed";
 		
-		this.canvas.style.zIndex = zIndex || 9999;
+		this.canvas.style.zIndex = this.zIndex;
 		
 		this.w2 = this.canvas.width >> 1;
 		
@@ -130,18 +132,6 @@ class RadialMenu {
 		if( this.textShadowColor instanceof Object )
 		
 			this.textShadowColor = this.createGradient(this.textShadowColor);
-		
-		this.init();
-		
-		this.draw();
-		
-		this.addEvent();
-		
-	}
-	
-	init(){
-	
-		document.body.appendChild( this.canvas );
 		
 		for(let i = 0; i < this.buttons.length; i++){
 		
@@ -388,6 +378,34 @@ class RadialMenu {
 			
 		return gradient;
 	
+	}
+	
+	checkButtons(){
+	
+		if( !(this.buttons instanceof Array) )
+		
+			throw "Buttons must be an Array of button objects";
+			
+		for(let i = 0; i < this.buttons.length; i++){
+		
+			const button = this.buttons[i];
+			
+			if( !("text" in button) || !("action" in button) )
+			
+				throw "Button must have a text and an action value";
+				
+		}
+		
+	}
+	
+	addButtons(buttons){
+	
+		this.buttons = buttons;
+		
+		this.checkButtons();
+		
+		this.init();
+		
 	}
 	
 }

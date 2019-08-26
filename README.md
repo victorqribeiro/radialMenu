@@ -228,5 +228,34 @@ If you want a gradient from black to white set 0 as black and 1 as white, if you
 
 You can check out you some styles I created as examples [here](https://victorribeiro.com/radialMenu/style-visualizer.html)
 
+The RadialMenu class also offers some auxiliary methods so you can use the menu as a stand alone menu (like a joypad for a web game).
+
+**show()**
+Show the menu.
+
+**hide()**
+Hide the menu.
+
+**setPos(x : int, y : int)**
+Set the X and Y position of the menu.
+
+**addButtons(buttons : array of Buttons)**
+Useful if you want to load the style from a json file and add the buttons later one. Example below:
+
+```javascript
+
+const load = async function(){
+	const request = await fetch('styles/orange.json');
+	const data = await request.json();
+	
+	const menu = new RadialMenu(data);
+	menu.addButtons([
+		{text: '\uf000', action: ()=>{ //your code here } },
+		{text: '\uf001', action: ()=>{ //your code here } },
+	]);
+}
+
+```
+
 ## Buy me a coffee
 [![Donations](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=victorqribeiro%40gmail%2ecom&lc=BR&item_name=Victor%20Ribeiro&item_number=donation&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted)
