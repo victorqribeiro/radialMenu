@@ -286,6 +286,33 @@ class RadialMenu {
 			this.show();
 			
 		};
+	
+		const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+		
+		/* possible fix for iPhone where it doesn't translate long press into a context menu */
+		if( iOS ){
+			
+			document.addEventListener("touchstart", (e)=>{
+			
+				this.timer = setTimeout(()=>{
+					
+					this.setPos(e.touches[0].clientX - this.w2, e.touches[0].clientY - this.h2);
+			
+					this.show();
+					
+				}, 500); 
+				
+			});
+			
+			document.addEventListener("touchend", ()=>{
+			
+				if( this.timer )
+				
+					clearTimeout( this.timer );
+			
+			});
+			
+		}
 		
 	}
 	
