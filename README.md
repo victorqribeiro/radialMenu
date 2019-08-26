@@ -12,6 +12,8 @@ Create a customized and beautiful radial menu for your web app that can be used 
 
 *Work in progress. Writing the documentation and doing some tests.*
 
+Feel free to commit new styles and share them with the public.
+
 ## Documentation
 
 Let's create a new radial button so you can see how simple it is. You'll need to add the *RadialMenu.js* to your web app and then create a new menu. Let's look at the code:
