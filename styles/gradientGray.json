@@ -1,17 +1,19 @@
 {
 	"fontSize": 20,
-	"textColor": "#EEE",
-	"shadowColor": "rgba(0,0,0,0.5)",
+	"textColor": "#DDD",
+	"shadowColor": "rgba(0,0,0,0.8)",
 	"shadowBlur": 10,
 	"shadowOffsetX": 0,
-	"shadowOffsetY": 0,	
+	"shadowOffsetY": 0,
+	"textShadowColor": "black",
+	"textShadowBlur": 5,
 	"backgroundColor": {"gradient": "radial", "colors": {"0": "#555", "1":"#BBB"}},
-	"borderColor": {"gradient": "radial", "colors": {"0": "#444", "1":"#999"}},
+	"borderColor": {"gradient": "radial", "colors": {"0": "#888", "1":"#555"}},
 	"rotation": 0,
 	"buttons": [
-		{"text": "\uf008", "action": "" },
-		{"text": "\uf004", "action": "" },
-		{"text": "\uf006", "action": "" },
-		{"text": "\uf007", "action": "" }
+		{"text": "\uf008", "action": "", "textShadowOffsetX": -1,	"textShadowOffsetY": -1 },
+		{"text": "\uf004", "action": "", "textShadowOffsetX": 1,	"textShadowOffsetY": -1 },
+		{"text": "\uf006", "action": "", "textShadowOffsetX": 1,	"textShadowOffsetY": 1 },
+		{"text": "\uf007", "action": "", "textShadowOffsetX": -1,	"textShadowOffsetY": 1 }
 	]
 }
