@@ -33,7 +33,7 @@ class RadialMenu {
 			
 		this.rotation = Math.abs(rotation%this.TWOPI) || 0;
 		
-		this.shadowColor = shadowColor || 'rgba(0,0,0,0.2)';
+		this.shadowColor = shadowColor || 'rgba(0,0,0,0.5)';
 		
 		this.shadowBlur = !isNaN(shadowBlur) ? shadowBlur : 10;
 		
