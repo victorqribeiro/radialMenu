@@ -4,7 +4,8 @@ A highly customizable radial menu that's very easy to setup.
 
 ![screenshot](screenshot.png)
 
-See it live [here](https://victorribeiro.com/radialMenu) - (Right click if you're on a desktop / touch and hold on smartphone)
+See it live [here](https://victorribeiro.com/radialMenu)  
+[Alternative link](https://github.com/victorqribeiro/radialMenu)
 
 ## About
 
