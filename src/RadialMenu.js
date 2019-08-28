@@ -9,6 +9,8 @@ class RadialMenu {
 							
 		this.TWOPI = 2*Math.PI;
 		
+		this.scale = window.devicePixelRatio;
+		
 		this.fontFamily = fontFamily || 'FontAwesome';
 		
 		this.fontSize = fontSize || 14;
@@ -91,23 +93,33 @@ class RadialMenu {
 
 		this.step = this.TWOPI / this.buttons.length;
 		
-		this.canvas.width = (this.outerCircle * 2) + (this.shadowBlur * 2) + (this.shadowOffsetX * 2);
+		this.w = (this.outerCircle * 2) + (this.shadowBlur * 2) + (this.shadowOffsetX * 2);
 		
-		this.canvas.height = (this.outerCircle * 2) + (this.shadowBlur * 2) + (this.shadowOffsetY * 2);
-		
-		this.c = this.canvas.getContext('2d');
-		
-		this.c.font = this.fontSize+"px "+this.fontFamily;
-		
+		this.h = (this.outerCircle * 2) + (this.shadowBlur * 2) + (this.shadowOffsetY * 2);
+
 		this.canvas.style.display = "none";
 		
 		this.canvas.style.position = "fixed";
 		
+		this.canvas.style.width = this.w + "px";
+		
+		this.canvas.style.height = this.h + "px";
+		
+		this.canvas.width = this.w * this.scale;
+		
+		this.canvas.height = this.h * this.scale;
+		
+		this.c = this.canvas.getContext('2d');
+		
+		this.c.scale(this.scale, this.scale);
+		
+		this.c.font = this.fontSize+"px "+this.fontFamily;
+		
 		this.canvas.style.zIndex = this.zIndex;
 		
-		this.w2 = this.canvas.width >> 1;
+		this.w2 = this.w >> 1;
 		
-		this.h2 = this.canvas.height >> 1;
+		this.h2 = this.h >> 1;
 		
 		if( this.backgroundColor instanceof Object )
 		
@@ -159,7 +171,7 @@ class RadialMenu {
 		
 		this.c.imageSmoothingQuality = "high";
 	
-		this.c.clearRect(0,0,this.canvas.width,this.canvas.height);
+		this.c.clearRect(0, 0, this.w, this.h);
 		
 		this.c.shadowColor = this.shadowColor;
 		
