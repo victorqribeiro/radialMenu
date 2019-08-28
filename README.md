@@ -5,7 +5,7 @@ A highly customizable radial menu that's very easy to setup.
 ![screenshot](screenshot.png)
 
 See it live [here](https://victorribeiro.com/radialMenu)  
-[Alternative link](https://github.com/victorqribeiro/radialMenu)
+[Alternative link](https://victorqribeiro.github.io/radialMenu/)
 
 ## About
 
