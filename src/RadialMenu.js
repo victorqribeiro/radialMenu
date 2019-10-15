@@ -246,10 +246,18 @@ class RadialMenu {
 		this.canvas.addEventListener('click', e => {
 
 			const rect = this.canvas.getBoundingClientRect();
-
-			const d = this.distance(e.clientX, e.clientY, rect.left+this.w2, rect.top+this.h2);
 			
-			let a = Math.atan2(e.clientY-(rect.top+this.h2), e.clientX-(rect.left+this.w2));
+			const _x = this.w/rect.width;
+			
+			const _y = this.h/rect.height;
+			
+			const posX = ( rect.left + this.w2 ) * _x;
+			
+			const posY = ( rect.top + this.h2 ) * _y;
+
+			const d = this.distance(e.clientX, e.clientY, posX, posY);
+			
+			let a = Math.atan2(e.clientY-posY, e.clientX-posX);
 			
 			a = a > 0 ? a : this.TWOPI+a;
 			
