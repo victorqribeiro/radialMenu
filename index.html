@@ -55,10 +55,35 @@
 
 <p><a href="style-visualizer.html"> Style Visualizer</a></p>
 
-<script src="build/RadialMenu.min.js"></script>
+<script src="src/RadialMenu.js"></script>
 
 <script>
-	const radial = new RadialMenu({rotation: Math.PI/2, fontSize: 18});
+	const radial = new RadialMenu({
+		rotation: Math.PI/2, 
+		buttonGap: Math.PI / 60,
+		// borderColor: '#FFF0', 
+		fontSize: 18
+	});
+
+	// const radial = new RadialMenu({
+	// 	backgroundColor: '#00a5d3',
+	// 	hoverBackgroundColor: '#afcb38',
+	// 	spaceBetweenButtons: Math.PI / 60,
+	// 	textColor: 'white', 
+	// 	borderColor: '#FFF0', 
+	// 	rotation: Math.PI/2, 
+	// 	fontSize: 18, 
+	// 	shadowOffsetX: 0,
+	// 	shadowOffsetY: 1,
+	// 	shadowBlur: 4,
+	// 	shadowColor: 'rgba(0,0,0,0.6)',
+	// 	buttons: [
+	// 		{text: '\uF000', action: _ => console.log('uF000'), },
+	// 		{text: '\uF002', action: _ => console.log('uF002'), },
+	// 		{text: '\uF003', action: _ => console.log('uF003'), },
+	// 		{text: '\uF001', action: _ => console.log('uF001')}
+	// 	]
+	// });
 </script>
 
 </body>

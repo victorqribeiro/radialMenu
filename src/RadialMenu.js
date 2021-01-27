@@ -1,13 +1,25 @@
+/**
+ * @typedef {Object} ShadowStyle The style to render a shadow in the canvas
+ * @property {DOMString} color The shadow color.
+ * @property {number} blur The shadow blur.
+ * @property {number} offsetX The shadow X offset.
+ * @property {number} offsetY The shadow Y offset.
+ */
+
+/** @type {ShadowStyle} */
+const NO_SHADOW = { color: 'transparent', blur: 0 };
+
+/** @type {number} */
+const TWOPI = 2 * Math.PI;
+
 class RadialMenu {
 
 	constructor({fontFamily, fontSize, innerCircle, outerCircle,
 							rotation, shadowBlur, shadowColor, shadowOffsetX, 
 							shadowOffsetY, backgroundColor, borderColor, textColor,
 							textBorderColor, textShadowColor, textShadowBlur,
-							textShadowOffsetX, textShadowOffsetY, buttons,
+							textShadowOffsetX, textShadowOffsetY, buttonGap, buttons,
 							posX, posY, isFixed, zIndex} = {}){
-							
-		this.TWOPI = 2*Math.PI;
 		
 		this.scale = window.devicePixelRatio;
 		
@@ -31,20 +43,26 @@ class RadialMenu {
 		
 			throw "Inner circle can't be negative";
 			
-		this.rotation = Math.abs(rotation%this.TWOPI) || 0;
+		this.rotation = Math.abs(rotation%TWOPI) || 0;
 		
-		this.shadowColor = shadowColor || 'rgba(0,0,0,0.5)';
-		
-		this.shadowBlur = !isNaN(shadowBlur) ? shadowBlur : 10;
-		
-		this.shadowOffsetX = !isNaN(shadowOffsetX) ? shadowOffsetX : 3;
-		
-		this.shadowOffsetY = !isNaN(shadowOffsetY) ? shadowOffsetY : 3;
+		this.shadowStyle = {
+
+			color: shadowColor || 'rgba(0,0,0,0.5)',
+
+			blur: !isNaN(shadowBlur) ? shadowBlur : 10,
+
+			offsetX: !isNaN(shadowOffsetX) ? shadowOffsetX : 3,
+
+			offsetY: !isNaN(shadowOffsetY) ? shadowOffsetY : 3
+
+		}
 		
 		this.backgroundColor = backgroundColor || "#EEE";
 		
 		this.borderColor = borderColor || "#FFF";
 		
+		this.buttonGap = buttonGap || 0;
+
 		this.textColor = textColor || "#000";
 		
 		this.textBorderColor = textBorderColor || "transparent";
@@ -91,11 +109,11 @@ class RadialMenu {
 	
 	init(){
 
-		this.step = this.TWOPI / this.buttons.length;
+		this.step = TWOPI / this.buttons.length;
 		
-		this.w = (this.outerCircle * 2) + (this.shadowBlur * 2) + (this.shadowOffsetX * 2);
+		this.w = (this.outerCircle * 2) + (this.shadowStyle.blur * 2) + (this.shadowStyle.offsetX * 2);
 		
-		this.h = (this.outerCircle * 2) + (this.shadowBlur * 2) + (this.shadowOffsetY * 2);
+		this.h = (this.outerCircle * 2) + (this.shadowStyle.blur * 2) + (this.shadowStyle.offsetY * 2);
 
 		this.canvas.style.display = "none";
 		
@@ -129,9 +147,9 @@ class RadialMenu {
 		
 			this.borderColor = this.createGradient(this.borderColor);
 
-		if( this.shadowColor instanceof Object )
+		if( this.shadowStyle.color instanceof Object )
 		
-			this.shadowColor = this.createGradient(this.shadowColor);
+			this.shadowStyle.color = this.createGradient(this.shadowStyle.color);
 
 		if( this.textColor instanceof Object )
 		
@@ -145,17 +163,25 @@ class RadialMenu {
 		
 			this.textShadowColor = this.createGradient(this.textShadowColor);
 		
+		const margin = this.buttonGap;
+
+		const innerMargin = margin * Math.PI * this.innerCircle / this.outerCircle;
+		
 		for(let i = 0; i < this.buttons.length; i++){
 		
-			this.buttons[i]["ini"] = (i * this.step + this.rotation) % this.TWOPI ;
+			this.buttons[i]["ini"] = (i * this.step + this.rotation + margin) % TWOPI ;
 			
-			this.buttons[i]["fin"] = (this.buttons[i]["ini"] + this.step) % this.TWOPI;
+			this.buttons[i]["fin"] = (this.buttons[i]["ini"] + this.step - 2 * margin) % TWOPI;
+
+			this.buttons[i]["ini_inner"] = (i * this.step + this.rotation + innerMargin) % TWOPI ;
+			
+			this.buttons[i]["fin_inner"] = (this.buttons[i]["ini_inner"] + this.step - 2 * innerMargin) % TWOPI;
 			
 			if( this.buttons[i]["ini"] > this.buttons[i]["fin"])
 			
 				this.rest = i;
 				
-			const a = (this.buttons[i]["ini"] + this.step/2) ;
+			const a = (this.buttons[i]["ini"] + (this.step)/2 - margin) ;
 			
 			this.buttons[i]["centerX"] = Math.cos(a)*(this.innerCircle+(this.outerCircle-this.innerCircle)/2)-this.fontSize/2;
 			
@@ -167,75 +193,91 @@ class RadialMenu {
 	
 	draw(){
 	
-		this.c.imageSmoothingEnabled = true;
+		const ctx = this.c;
+
+		ctx.imageSmoothingEnabled = true;
 		
-		this.c.imageSmoothingQuality = "high";
+		ctx.imageSmoothingQuality = "high";
 	
-		this.c.clearRect(0, 0, this.w, this.h);
-		
-		this.c.shadowColor = this.shadowColor;
-		
-		this.c.shadowBlur = this.shadowBlur;
-		
-		this.c.shadowOffsetX = this.shadowOffsetX;
-		
-		this.c.shadowOffsetY = this.shadowOffsetY;
-		
-		this.c.beginPath();
-		
-		this.c.arc(this.w2, this.h2, this.outerCircle, 0, this.TWOPI);
-		
-		this.c.arc(this.w2, this.h2, this.innerCircle, this.TWOPI, 0, true);
-		
-		this.c.fillStyle = this.shadowColor;
-		
-		this.c.fill();
-		
+		ctx.clearRect(0, 0, this.w, this.h);
+
+		if(!this.buttonGap) {
+
+			setContextShadowStyle(ctx, this.shadowStyle);
+
+			ctx.fillStyle = this.shadowStyle.color;
+
+			ctx.beginPath();
+			
+			ctx.arc(this.w2, this.h2, this.outerCircle, 0, TWOPI);
+			
+			ctx.arc(this.w2, this.h2, this.innerCircle, TWOPI, 0, true);
+			
+			ctx.fill();
+
+		}
+
 		for(let i = 0; i < this.buttons.length; i++){
 		
 			const button = this.buttons[i];
 			
-			this.c.shadowBlur = 0;
+			if(this.buttonGap) {
+
+				setContextShadowStyle(ctx, this.shadowStyle);
+				
+			} else {
+				
+				setContextShadowStyle(ctx, NO_SHADOW);
+
+			}
+
+			ctx.fillStyle = "backgroundColor" in button ? button["backgroundColor"] : this.backgroundColor;
+
+			ctx.strokeStyle = "borderColor" in button ? button["borderColor"] : this.borderColor;
 			
-			this.c.shadowColor = 'transparent';
+			ctx.beginPath();
 			
-			this.c.fillStyle = "backgroundColor" in button ? button["backgroundColor"] : this.backgroundColor;
+			ctx.arc(this.w2,this.h2, this.outerCircle, button["ini"], button["fin"]);
 			
-			this.c.strokeStyle = "borderColor" in button ? button["borderColor"] : this.borderColor;
+			ctx.arc(this.w2,this.h2, this.innerCircle, button["fin_inner"], button["ini_inner"], true);
 			
-			this.c.beginPath();
+			ctx.closePath();
+
+			ctx.fill();
 			
-			this.c.arc(this.w2,this.h2, this.outerCircle, button["ini"], button["fin"]);
+			if(this.buttonGap) {
+
+				setContextShadowStyle(ctx, NO_SHADOW);
+
+			}
+
+			ctx.stroke();
 			
-			this.c.arc(this.w2,this.h2, this.innerCircle, button["fin"], button["ini"], true);
+			setContextShadowStyle(ctx, {
+
+				color: "textShadowColor" in button ? button["textShadowColor"] : this.textShadowColor,
+				
+				blur: "textShadowBlur" in button ? button["textShadowBlur"] : this.textShadowBlur,
+				
+				offsetX: "textShadowOffsetX" in button ? button["textShadowOffsetX"] : this.textShadowOffsetX,
+				
+				offsetY: "textShadowOffsetY" in button ? button["textShadowOffsetY"] : this.textShadowOffsetY
+
+			});
+
+			ctx.fillStyle = "textColor" in button ? button["textColor"] : this.textColor;
+
+			ctx.strokeStyle = "textBorderColor" in button ? button["textBorderColor"] : this.textBorderColor;
+
+			ctx.save();
 			
-			this.c.closePath();
+			ctx.translate(this.w2, this.h2);
 			
-			this.c.fill();
+			ctx.fillText(button["text"], button["centerX"], button["centerY"]);
 			
-			this.c.stroke();
+			ctx.strokeText(button["text"], button["centerX"], button["centerY"]);
 			
-			this.c.fillStyle = "textColor" in button ? button["textColor"] : this.textColor;
-			
-			this.c.strokeStyle = "textBorderColor" in button ? button["textBorderColor"] : this.textBorderColor;
-			
-			this.c.shadowColor = "textShadowColor" in button ? button["textShadowColor"] : this.textShadowColor;
-			
-			this.c.shadowBlur = "textShadowBlur" in button ? button["textShadowBlur"] : this.textShadowBlur;
-			
-			this.c.shadowOffsetX = "textShadowOffsetX" in button ? button["textShadowOffsetX"] : this.textShadowOffsetX;
-			
-			this.c.shadowOffsetY = "textShadowOffsetY" in button ? button["textShadowOffsetY"] : this.textShadowOffsetY;
-			
-			this.c.save();
-			
-			this.c.translate(this.w2, this.h2);
-			
-			this.c.fillText(button["text"], button["centerX"], button["centerY"]);
-			
-			this.c.strokeText(button["text"], button["centerX"], button["centerY"]);
-			
-			this.c.restore();
+			ctx.restore();
 			
 		}
 		
@@ -245,38 +287,10 @@ class RadialMenu {
 	
 		this.canvas.addEventListener('click', e => {
 
-			const rect = this.canvas.getBoundingClientRect();
-			
-			const _x = this.w/rect.width;
-			
-			const _y = this.h/rect.height;
-			
-			const posX = ( rect.left + this.w2 ) * _x;
-			
-			const posY = ( rect.top + this.h2 ) * _y;
+			let clickedButton = this.getButton(e.clientX, e.clientY);
 
-			const d = this.distance(e.clientX, e.clientY, posX, posY);
-			
-			let a = Math.atan2(e.clientY-posY, e.clientX-posX);
-			
-			a = a > 0 ? a : this.TWOPI+a;
-			
-			if( d > this.innerCircle && d < this.outerCircle ){
-			
-				for(let i = 0; i < this.buttons.length; i++){
-					
-					if( a >= this.buttons[i]["ini"] && a <= this.buttons[i]["fin"] ){
-					
-						this.buttons[i].action();
-						
-						return
-						
-					}
-
-				}
-				
-				this.buttons[this.rest].action();
-				
+			if(clickedButton) {
+				clickedButton.action();
 			}
 
 		});
@@ -454,5 +468,79 @@ class RadialMenu {
 		this.init();
 		
 	}
+
+	/**
+	 * Get the button concerne by the event
+	 * @param {number} xPixel The x coordinate of the pixel mouse event.
+	 * @param {number} yPixel The y coordinate of the pixel mouse event.
+	 * @return {any} The button concerne by the event or undefined if no button.
+	 */
+	getButton(xPixel, yPixel) {
+
+		const rect = this.canvas.getBoundingClientRect();
+				
+		const _x = this.w/rect.width;
+		
+		const _y = this.h/rect.height;
+		
+		const posX = ( rect.left + this.w2 ) * _x;
+		
+		const posY = ( rect.top + this.h2 ) * _y;
+		
+		const d = this.distance(xPixel, yPixel, posX, posY);
+		
+		let theButton;
+
+		if( d > this.innerCircle && d < this.outerCircle ){
+			
+			let a = Math.atan2(yPixel-posY, xPixel-posX);
+			
+			a = a > 0 ? a : TWOPI+a;
+
+			for(let i = 0; i < this.buttons.length; i++){
+				
+				if( a >= this.buttons[i]["ini"] && a <= this.buttons[i]["fin"] ){
+					
+					theButton = this.buttons[i];
+					
+					break;
+					
+				}
+				
+			}
+
+			if( !theButton && this.rest ) {
+
+				if(a < this.buttons[this.rest]["ini"]) {
+
+					a += TWOPI;
+
+				}
+
+				if(a >= this.buttons[this.rest]["ini"] && a <= this.buttons[this.rest]["fin"] + TWOPI) {
+					
+					theButton = this.buttons[this.rest];
+
+				}
+
+			}
+			
+		}
 	
+		return theButton;
+
+	}
+	
+}
+
+/**
+ * Set styles in the canvas rendering context.
+ * @param {CanvasRenderingContext2D} context The canvas context.
+ * @param {ShadowStyle} shadowStyle The shadow style to set in the context.
+ */
+function setContextShadowStyle(context, shadowStyle) {
+	context.shadowColor = shadowStyle.color;
+	context.shadowBlur = shadowStyle.blur;
+	context.shadowOffsetX = shadowStyle.offsetX;
+	context.shadowOffsetY = shadowStyle.offsetY;
 }
