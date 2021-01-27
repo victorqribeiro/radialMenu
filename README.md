@@ -101,6 +101,9 @@ Horizontal displacement of the shadow.
 Vertical displacement of the shadow.  
 *Default:* 3
 
+**buttonGap** : Int
+Gap between buttons. *This value is in radians*.
+*Default:* 0
 
 **You can edit every single button individually, or you can set values for all of them at once.**  
 
