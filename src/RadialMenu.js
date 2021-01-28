@@ -68,7 +68,7 @@ const NO_SHADOW = { color: 'transparent', blur: 0 };
 /** @type {number} */
 const TWOPI = 2 * Math.PI;
 
-class RadialMenu {
+export default class RadialMenu {
 
 	/**
 	 * @constructor
