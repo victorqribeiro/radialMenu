@@ -1,9 +1,65 @@
 /**
+ * @typedef {Object} RadialMenuOptions
+ * @property {string} [fontFamily=FontAwesome] Name of the font to be used. On this example 'FontAwesome' is being used for the free icons. But you can use your own font.  
+ * @property {number} [fontSize=14] Size of the icons (text) used on the buttons. 
+ * @property {number} [innerCircle=50] Inner circle of the radial menu. Use 0 (zero) if you don't want a hole in the menu. 
+ * @property {number} [outerCircle=100] Outer circle of the radial menu. The outer circle and the inner circle will defined how thick is the menu.
+ * @property {number} [rotation=PI/2] This value rotate the whole "circle" of the menu, if you want to better "align" the button's divison. *This value is in radians and always rotate the menu clock wise*.
+ * @property {number} [shadowBlur=10] How blurred is the shadow. 
+ * @property {DOMString|GradientObject} [shadowColor=rgba(0,0,0,0.2)] Shadow color.
+ * @property {number} [shadowOffsetX=3] Horizontal displacement of the shadow.
+ * @property {number} [shadowOffsetY=3] Vertical displacement of the shadow.
+ * @property {DOMString|GradientObject} [backgroundColor=#EEE] The background color of the button.
+ * @property {DOMString|GradientObject} [hoverBackgroundColor] The hover background color of the button.
+ * @property {DOMString|GradientObject} [borderColor=#FFF] The border color of the button.
+ * @property {DOMString|GradientObject} [textColor=#000] Color of the text inside the button.
+ * @property {DOMString|GradientObject} [hoverTextColor] Color of the text inside the button when hover.
+ * @property {DOMString|GradientObject} [textBorderColor=transparent] Color of the contour of the text inside the button.
+ * @property {DOMString|GradientObject} [textShadowColor=transparent] Color of the shadow of the text.
+ * @property {number} [textShadowBlur=0] How blurred is the shadow of the text. 
+ * @property {number} [textShadowOffsetX=0] Horizontal displacement of the shadow of the text.
+ * @property {number} [textShadowOffsetY=0] Vertical displacement of the shadow of the text.
+ * @property {number} [buttonGap=0] Gap between buttons. *This value is in radians*.
+ * @property {Array<RadialMenuButton>} [buttons] The menu button list.
+ * @property {function(boolean):void} [hoverAction] Callback when hover state changes. When menu is hovered, true argument is set when fucntion call, false otherwise.
+ * @property {number} [posX=0] Horizontal position of the menu. This value is used only when the menu is fixed on the page. 
+ * @property {number} [posY=0] Vertical position of the menu. This value is used only when the menu is fixed on the page. 
+ * @property {boolean} [isFixed=false] This value determine if the menu will be fixed on the page. This is usefull in case you're making a web app that needs a menu that is always visible.
+ * @property {number} [zIndex=9999] This value determine the order the menu will be displayed on the page. Higher values means that it is in front of elements with lower values. 
+ */
+
+/**
+ * @typedef {Object} RadialMenuButton The options to draw menu button.
+ * @property {DOMString|GradientObject} [backgroundColor=#EEE] The background color of the button.
+ * @property {DOMString|GradientObject} [borderColor=#FFF] The border color of the button.
+ * @property {DOMString|GradientObject} [textColor=#000] Color of the text inside the button.
+ * @property {DOMString|GradientObject} [textBorderColor=transparent] Color of the contour of the text inside the button.
+ * @property {DOMString|GradientObject} [textShadowColor=transparent] Color of the shadow of the text.
+ * @property {number} [textShadowBlur=0] How blurred is the shadow of the text. 
+ * @property {number} [textShadowOffsetX=0] Horizontal displacement of the shadow of the text.
+ * @property {number} [textShadowOffsetY=0] Vertical displacement of the shadow of the text.
+ * @property {number} [buttonGap=0] Gap between buttons. *This value is in radians*.
+ * @property {function():void} action is a function that will be called when the button is clicked.
+ * @property {string} text is the icon that will be displayed. [see the font-visualizer.html for the unicode of each icon *'\uf000'*](https://victorribeiro.com/radialMenu/font-visualizer.html). 
+ */
+
+/**
  * @typedef {Object} ShadowStyle The style to render a shadow in the canvas
- * @property {DOMString} color The shadow color.
+ * @property {DOMString|GradientObject} color The shadow color.
  * @property {number} blur The shadow blur.
  * @property {number} offsetX The shadow X offset.
  * @property {number} offsetY The shadow Y offset.
+ */
+
+/**
+ * @typedef {Object} GradientObject The gradient object color.
+ * @property {string} gradient The gradient type :
+ * radial - *from inside to outside*  
+ * linear1 - *top to bottom*  
+ * linear2 - *left to right*  
+ * linear3 - *top left to bottom right*  
+ * linear4 - *bottom left to top right*  
+ * @property {Array<DOMColor>} colors An array which contains initial et final gradient color.
  */
 
 /** @type {ShadowStyle} */
@@ -14,13 +70,24 @@ const TWOPI = 2 * Math.PI;
 
 class RadialMenu {
 
+	/**
+	 * @constructor
+	 * @param {RadialMenuOptions} options The radial menu options. 
+	 */
 	constructor({fontFamily, fontSize, innerCircle, outerCircle,
 							rotation, shadowBlur, shadowColor, shadowOffsetX, 
-							shadowOffsetY, backgroundColor, borderColor, textColor,
-							textBorderColor, textShadowColor, textShadowBlur,
-							textShadowOffsetX, textShadowOffsetY, buttonGap, buttons,
+							shadowOffsetY, backgroundColor, hoverBackgroundColor, borderColor, textColor,
+							hoverTextColor, textBorderColor, textShadowColor, textShadowBlur,
+							textShadowOffsetX, textShadowOffsetY, buttonGap, buttons, hoverAction,
 							posX, posY, isFixed, zIndex} = {}){
 		
+		
+		this.state = {};
+
+		this.state.hover = undefined;
+
+		this.hoverAction = hoverAction ? hoverAction : () => {};
+
 		this.scale = window.devicePixelRatio;
 		
 		this.fontFamily = fontFamily || 'FontAwesome';
@@ -58,13 +125,17 @@ class RadialMenu {
 		}
 		
 		this.backgroundColor = backgroundColor || "#EEE";
-		
+
+		this.hoverBackgroundColor = hoverBackgroundColor;
+
 		this.borderColor = borderColor || "#FFF";
 		
 		this.buttonGap = buttonGap || 0;
 
 		this.textColor = textColor || "#000";
 		
+		this.hoverTextColor = hoverTextColor;
+
 		this.textBorderColor = textBorderColor || "transparent";
 		
 		this.textShadowColor = textShadowColor || "transparent";
@@ -231,10 +302,18 @@ class RadialMenu {
 
 			}
 
-			ctx.fillStyle = "backgroundColor" in button ? button["backgroundColor"] : this.backgroundColor;
+			if(this.hoverBackgroundColor && this.state.hover === button) {
+
+				ctx.fillStyle = this.hoverBackgroundColor;
+			
+			} else {
+			
+				ctx.fillStyle = "backgroundColor" in button ? button["backgroundColor"] : this.backgroundColor;
+
+			}
 
 			ctx.strokeStyle = "borderColor" in button ? button["borderColor"] : this.borderColor;
-			
+
 			ctx.beginPath();
 			
 			ctx.arc(this.w2,this.h2, this.outerCircle, button["ini"], button["fin"]);
@@ -265,7 +344,15 @@ class RadialMenu {
 
 			});
 
-			ctx.fillStyle = "textColor" in button ? button["textColor"] : this.textColor;
+			if(this.hoverTextColor && this.state.hover === button) {
+
+				ctx.fillStyle = this.hoverTextColor;
+			
+			} else {
+			
+				ctx.fillStyle = "textColor" in button ? button["textColor"] : this.textColor;
+
+			}
 
 			ctx.strokeStyle = "textBorderColor" in button ? button["textBorderColor"] : this.textBorderColor;
 
@@ -290,11 +377,33 @@ class RadialMenu {
 			let clickedButton = this.getButton(e.clientX, e.clientY);
 
 			if(clickedButton) {
+				
 				clickedButton.action();
+			
 			}
 
 		});
 		
+		if(this.hoverBackgroundColor || this.hoverTextColor || this.hoverAction) {
+
+			this.canvas.addEventListener('mousemove', e => {
+				
+				const previousHoverState = this.state.hover;
+				
+				this.state.hover = this.getButton(e.clientX, e.clientY);
+				
+				if(previousHoverState !== this.state.hover) {
+
+					this.hoverAction(this.state.hover !== undefined);
+
+					this.draw();
+					
+				}
+
+			});
+
+		}
+
 		if( this.isFixed ){
 		
 			this.setPos(this.posX, this.posY);
@@ -454,7 +563,7 @@ class RadialMenu {
 			if( !("text" in button) || !("action" in button) )
 			
 				throw "Button must have a text and an action value";
-				
+
 		}
 		
 	}
