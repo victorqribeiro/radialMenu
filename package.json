@@ -1,6 +1,6 @@
 {
-  "name": "radial-menu",
-  "version": "1.1.0",
+  "name": "customizable-radial-menu",
+  "version": "1.2.0",
   "description": "A highly customizable radial menu that's very easy to setup.",
   "main": "index.js",
   "scripts": {
