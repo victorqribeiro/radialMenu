@@ -62,23 +62,23 @@
 <body>
 
 <ul>
-	<li onclick="javascript:load('blueGlass');">blueGlass</li>
-	<li onclick="javascript:load('gradientGray');">gradientGray</li>
-	<li onclick="javascript:load('orange');">orange</li>
+	<li onclick="javascript:loadRadialMenu('blueGlass');">blueGlass</li>
+	<li onclick="javascript:loadRadialMenu('gradientGray');">gradientGray</li>
+	<li onclick="javascript:loadRadialMenu('orange');">orange</li>
 </ul>
 
-<script src="build/RadialMenu.min.js"></script>
+<script type="module">
+	import RadialMenu from "./build/RadialMenu.min.js";
 
-<script>
-const load = async function(file){
+	window.loadRadialMenu = async function(file){
 
-	const request = await fetch('styles/'+file+'.json');
-	
-	const data = await request.json();
-	
-	const radial = new RadialMenu(data);
-	
-}
+		const request = await fetch('styles/'+file+'.json');
+		
+		const data = await request.json();
+		
+		const radial = new RadialMenu(data);
+		
+	}
 
 </script>
 
