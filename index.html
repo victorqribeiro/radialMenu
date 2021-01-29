@@ -59,9 +59,9 @@
 
 <p><a href="style-visualizer.html"> Style Visualizer</a></p>
 
-<script src="build/RadialMenu.min.js"></script>
+<script type="module">
+	import RadialMenu from "./build/RadialMenu.min.js";
 
-<script>
 	const radial = new RadialMenu({
 		rotation: Math.PI/2,
 		hoverAction: isHover => document.documentElement.style.setProperty('--cursor-state', isHover ? 'pointer' : 'default'),
