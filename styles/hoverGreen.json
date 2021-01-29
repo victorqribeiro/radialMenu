@@ -1,0 +1,20 @@
+{
+	"backgroundColor": "#00a5d3",
+	"hoverBackgroundColor": "#afcb38",
+	"buttonGap": 0.052,
+	"textColor": "white",
+	"hoverTextColor": "#333",
+	"borderColor": "transparent", 
+	"rotation": 1.57, 
+	"fontSize": 18, 
+	"shadowOffsetX": 0,
+	"shadowOffsetY": 1,
+	"shadowBlur": 4,
+	"shadowColor": "rgba(0,0,0,0.6)",
+	"buttons": [
+		{"text": "\uF000", "action": "" },
+		{"text": "\uF002", "action": "" },
+		{"text": "\uF003", "action": "" },
+		{"text": "\uF001", "action": ""}
+	]
+}
