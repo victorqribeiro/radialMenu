@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "docs": "jsdoc2md src/RadialMenu.js > docs/api.md",
+    "dist": "uglifyjs src/RadialMenu.js -c -m -o build/RadialMenu.min.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -32,6 +33,8 @@
   },
   "homepage": "https://github.com/victorqribeiro/radialMenu#readme",
   "devDependencies": {
-    "jsdoc-to-markdown": "^6.0.1"
-  }
+    "jsdoc-to-markdown": "^6.0.1",
+    "uglify-es": "^3.3.9"
+  },
+  "dependencies": {}
 }
