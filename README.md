@@ -22,12 +22,14 @@ Feel free to commit new styles and share them with the public.
 Let's create a new radial button so you can see how simple it is. You'll need to add the *RadialMenu.js* to your web app and then create a new menu. Let's look at the code:
 
 ```html
-<script src="RadialMenu.js"></script>
+<script type="module">
+import RadialMenu from "./build/RadialMenu.min.js";
 
-<script>
 const radial = new RadialMenu();
 </script>
 ```
+
+Since the last PR you can now use import RadialMenu using the script as a module.
 
 That's it. The library has some default buttons included as example so you can see how it works. Let's continue reading the documentation so we can learn how to create our very own radial menu with our very own buttons.
 
